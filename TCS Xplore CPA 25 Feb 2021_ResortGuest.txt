@@ -1,0 +1,92 @@
+import java.io.*;
+import java.lang.*;
+import java.util.*;
+
+class ResortGuest{
+    public int guestId,noOfRoomsBooked;
+    public String guestName,dateOfBooking,mealOption;
+    public double totalBill;
+    ResortGuest()
+    {
+        this.guestId=0;
+        this.noOfRoomsBooked=0;
+        this.guestName="";
+        this.dateOfBooking="";
+        this.mealOption="";
+        this.totalBill=0;
+    }
+}
+class GFG{
+    public static void main(String[] args)
+    {
+        Scanner sc=new Scanner(System.in);
+        ResortGuest rg[]=new ResortGuest[4];
+        for(int i=0;i<rg.length;i++)
+        {
+           ResortGuest x=new ResortGuest();
+           x.guestId=sc.nextInt();
+           sc.nextLine();
+           x.guestName=sc.nextLine();
+           x.dateOfBooking=sc.nextLine();
+           x.noOfRoomsBooked=sc.nextInt();
+           sc.nextLine();
+           x.mealOption=sc.nextLine();
+           x.totalBill=sc.nextDouble();
+           
+           rg[i]=x;
+        }
+        sc.nextLine();
+        String month=sc.nextLine();
+        String meal=sc.nextLine();
+        int num=NumberOfRoomsBookedInmonth(rg,month);
+        if(num>0)
+        System.out.println(num);
+        else 
+        System.out.println("No rooms booked");
+        
+        ResortGuest k=searchResortGuestByMealOpted(rg,meal);
+        if(k!=null)
+        System.out.println(k.guestId);
+        else
+        System.out.println("No such meal");
+    }
+    public static int NumberOfRoomsBookedInmonth(ResortGuest[] rg,String month)
+    {
+        int count=0;
+       for(int i=0;i<rg.length;i++)
+       {
+           String date=rg[i].dateOfBooking;
+           String d[]=date.split("-");
+           String currmonth=d[1];
+           if(currmonth.equalsIgnoreCase(month))
+           {
+               count+=rg[i].noOfRoomsBooked;
+           }
+       }
+       return count;
+    }
+    public static ResortGuest searchResortGuestByMealOpted(ResortGuest[] rg,String mopted)
+
+    {
+        ResortGuest secondHighestObject=null;
+        double totalHighest=-1;
+        double secondHighest=-1;
+        for(int i=0;i<rg.length;i++)
+        {
+            if(rg[i].totalBill>totalHighest && (rg[i].mealOption).equalsIgnoreCase(mopted))
+            {
+             totalHighest=rg[i].totalBill;
+            }
+        }
+        if(totalHighest==-1)
+        return null;
+       for(int i=0;i<rg.length;i++)
+        {
+            if(rg[i].totalBill>secondHighest && (rg[i].mealOption).equalsIgnoreCase(mopted) && rg[i].totalBill!=totalHighest)          {
+             secondHighest=rg[i].totalBill;
+             secondHighestObject=rg[i];
+            }
+        } 
+    return secondHighestObject;
+    }
+}
