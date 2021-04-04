@@ -1,0 +1,16 @@
+awk 'BEGIN {FS=";";count=0;}
+    {
+    if(tolower($3)=="programmer")
+    {
+        annual=$4*12
+        print $2 "," $3 "," $4 ","annual 
+        count++
+    }
+    }
+    END{
+        if(count==0)
+        {
+            print "No Programmer Found"
+        }
+    }
+        '
