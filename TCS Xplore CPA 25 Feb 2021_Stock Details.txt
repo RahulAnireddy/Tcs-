@@ -1,0 +1,18 @@
+awk ' BEGIN{FS=",";count=0;}
+{
+if($1=="Jan")
+{
+    count=count+($3*$5);
+}
+
+}
+   END{
+       if(count==0)
+       {
+           print "No stocks found";
+       }
+       else
+       {
+           print count;
+       }
+   }'
